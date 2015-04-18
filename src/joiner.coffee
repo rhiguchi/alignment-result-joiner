@@ -1,3 +1,5 @@
+class AlignmentLineJoiner
+  constructor: () ->
+    return
 
-module.exports = ->
-  return 'test'
+module.exports = AlignmentLineJoiner
