@@ -38,29 +38,63 @@ describe 'Joiner', ->
       expect(joiner).to.have.property 'build'
       expect(joiner.build).to.be.a 'function'
 
-    it '配列が返される', ->
+    it '読み込んだデータの名前分の要素数の配列が返される', ->
+      # 標準状態
       expect(joiner.build()).to.eql []
 
-    it '読み込んだ配列情報からシーケンスを返す', ->
-      joiner.append('S PED CH GDZQ    30 ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG 119')
+      joiner.append('AB618619.seq    0 ---- 0')
+      expect(joiner.build()).to.have.lengthOf(1)
 
-      result = joiner.build()
-      expect(result).to.have.lengthOf(1)
-      expect(result[0]).to.have.property 'name', 'S PED CH GDZQ'
-      expect(result[0]).to.have.property 'sequence', 'ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG'
+      joiner.append('AB618622.seq    0 ---- 0')
+      expect(joiner.build()).to.have.lengthOf(2)
 
+      joiner.append('AB618622.seq    0 AAAAA 0')
+      expect(joiner.build()).to.have.lengthOf(2)
+
+      # 交互
       joiner = new Joiner
-      joiner.append('AB618619.seq            1 ATGGCTTCTGT-CAGCTTTC--AGGATCGT---GGCCGCAAACGGGTGCCATTATCCCTC     54')
-      joiner.append('AB618619.seq           55 TATGCCCCTCTTAGGGTTACTAATGACAAACCCCTTTCTAAGGTACTTGCAAACAACGCT    114')
-      joiner.append('AB618619.seq         1315 ACAGGAAATTAA                                                   1326')
+      joiner.append('AY539715.seq    0 AAAAA 0')
+      joiner.append('AY653206.seq    0 AAAAA 0')
+      joiner.append('AY539715.seq    0 AAAAA 0')
+      expect(joiner.build()).to.have.lengthOf(2)
 
-      result = joiner.build()
-      expect(result).to.have.lengthOf(1)
+    it '読み込んだ行がアラインメント結果と異なる書式のときは無視される', ->
+      # 標準状態
+      expect(joiner.build()).to.eql []
+
+      joiner.append('')
+      joiner.append('data')
+      expect(joiner.build()).to.have.lengthOf(0)
+
+    it '配列名が取得できる', ->
+      # 標準状態
+      expect(joiner.build()).to.eql []
+
+      result = joiner
+        .append('AB618619.seq    0 ---- 0')
+        .append('AB618622.seq    0 ---- 0')
+        .append('S PED CH GDZQ    0 ---- 0')
+        .build()
+
       expect(result[0]).to.have.property 'name', 'AB618619.seq'
+      expect(result[1]).to.have.property 'name', 'AB618622.seq'
+      expect(result[2]).to.have.property 'name', 'S PED CH GDZQ'
+
+    it '塩基配列が取得できる', ->
+      result =　joiner
+        .append('AB618619.seq            1 ATGGCTTCTGT-CAGCTTTC--AGGATCGT---GGCCGCAAACGGGTGCCATTATCCCTC     54')
+        .append('S PED CH GDZQ    30 ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG 119')
+        .append('AB618619.seq           55 TATGCCCCTCTTAGGGTTACTAATGACAAACCCCTTTCTAAGGTACTTGCAAACAACGCT    114')
+        .append('AB618619.seq         1315 ACAGGAAATTAA                                                   1326')
+        .build()
+
       expect(result[0]).to.have.property('sequence',
         'ATGGCTTCTGT-CAGCTTTC--AGGATCGT---GGCCGCAAACGGGTGCCATTATCCCTC' +
         'TATGCCCCTCTTAGGGTTACTAATGACAAACCCCTTTCTAAGGTACTTGCAAACAACGCT' +
         'ACAGGAAATTAA')
+
+      expect(result[1]).to.have.property 'sequence',
+        'ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG'
 
 
   describe '#parseSequenceName(data)', ->
