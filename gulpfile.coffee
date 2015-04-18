@@ -2,7 +2,9 @@ gulp = require 'gulp'
 del = require 'del'
 coffee = require 'gulp-coffee'
 source = require 'vinyl-source-stream'
+buffer = require 'vinyl-buffer'
 browserify = require 'browserify'
+sourcemaps = require 'gulp-sourcemaps'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 webserver = require 'gulp-webserver'
@@ -35,6 +37,9 @@ gulp.task 'browserify', ->
     .bundle()
     .on 'error', gutil.log.bind(gutil, 'Browserify Error')
     .pipe source 'bundle.js'
+    .pipe buffer()
+    .pipe sourcemaps.init loadMaps: true
+    .pipe sourcemaps.write '.'
     .pipe gulp.dest 'build/browserify'
 
 gulp.task 'coffee', ->
