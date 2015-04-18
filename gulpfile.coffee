@@ -1,4 +1,5 @@
 gulp = require 'gulp'
+coffee = require 'gulp-coffee'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 webserver = require 'gulp-webserver'
@@ -16,6 +17,11 @@ gulp.task 'webserver', ->
       open: true
   gulp.src('public')
     .pipe(server)
+
+gulp.task 'coffee', ->
+  gulp.src 'src/**/*.coffee'
+    .pipe coffee()
+    .pipe gulp.dest 'build/assets/script'
 
 gulp.task 'watch:test', ['test'], ->
   gulp.watch ['src/**/*.coffee', 'test/**/*.coffee'], ['test']
