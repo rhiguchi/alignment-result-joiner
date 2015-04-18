@@ -12,6 +12,53 @@ describe 'Joiner', ->
       expect(Joiner).to.be.a 'function'
       expect(new Joiner).to.be.an.instanceof Joiner
 
+  describe '#append()', ->
+    joiner = null
+
+    beforeEach ->
+      joiner = new Joiner
+      return
+
+    it '関数が定義されている', ->
+      expect(joiner).to.have.property 'append'
+      expect(joiner.append).to.be.a 'function'
+
+  describe '#build()', ->
+    joiner = null
+
+    beforeEach ->
+      joiner = new Joiner
+      return
+
+    it '関数が定義されている', ->
+      expect(joiner).to.have.property 'build'
+      expect(joiner.build).to.be.a 'function'
+
+    it '配列が返される', ->
+      expect(joiner.build()).to.eql []
+
+    it '読み込んだ配列情報からシーケンスを返す', ->
+      joiner.append('S PED CH GDZQ    30 ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG 119')
+
+      result = joiner.build()
+      expect(result).to.have.lengthOf(1)
+      expect(result[0]).to.have.property 'name', 'S PED CH GDZQ'
+      expect(result[0]).to.have.property 'sequence', 'ACTTTGTCTCGTTCGAGCAAAGTTTGCTGATGATCTACTCGATTTGCTCACCTTCCCGGGTGCACATCGCTTCTTACATAAACCCACGAG'
+
+      joiner = new Joiner
+      joiner.append('AB618619.seq            1 ATGGCTTCTGT-CAGCTTTC--AGGATCGT---GGCCGCAAACGGGTGCCATTATCCCTC     54')
+      joiner.append('AB618619.seq           55 TATGCCCCTCTTAGGGTTACTAATGACAAACCCCTTTCTAAGGTACTTGCAAACAACGCT    114')
+      joiner.append('AB618619.seq         1315 ACAGGAAATTAA                                                   1326')
+
+      result = joiner.build()
+      expect(result).to.have.lengthOf(1)
+      expect(result[0]).to.have.property 'name', 'AB618619.seq'
+      expect(result[0]).to.have.property('sequence',
+        'ATGGCTTCTGT-CAGCTTTC--AGGATCGT---GGCCGCAAACGGGTGCCATTATCCCTC' +
+        'TATGCCCCTCTTAGGGTTACTAATGACAAACCCCTTTCTAAGGTACTTGCAAACAACGCT' +
+        'ACAGGAAATTAA')
+
+
   describe '#parseSequenceName(data)', ->
     joiner = null
 
