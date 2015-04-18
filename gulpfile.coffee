@@ -1,4 +1,5 @@
 gulp = require 'gulp'
+del = require 'del'
 coffee = require 'gulp-coffee'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
@@ -9,6 +10,9 @@ require 'coffee-script/register'
 gulp.task 'default', ->
   console.log('test')
   return
+
+gulp.task 'clean', (cb) ->
+  del 'build', cb
 
 gulp.task 'webserver', ->
   server = webserver
