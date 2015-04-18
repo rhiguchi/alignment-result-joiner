@@ -10,7 +10,7 @@ class AlignmentLineJoiner
   # 解析元となるデータ行を加えます
   append: (line) ->
     name = @parseSequenceName(line)
-    return unless name?
+    return @ unless name?
 
     sequence = @parseSequence(line)
 
@@ -18,7 +18,7 @@ class AlignmentLineJoiner
 
     @sequenceMap[name] = if current? then current + sequence else sequence
 
-    return
+    return @
 
   # 構築したシーケンスの配列を返します
   build: ->

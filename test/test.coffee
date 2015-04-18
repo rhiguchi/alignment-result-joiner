@@ -23,6 +23,10 @@ describe 'Joiner', ->
       expect(joiner).to.have.property 'append'
       expect(joiner.append).to.be.a 'function'
 
+    it '自身を返す', ->
+      expect(joiner.append('')).to.eql joiner
+      expect(joiner.append(sampleLine1)).to.eql joiner
+
   describe '#build()', ->
     joiner = null
 
