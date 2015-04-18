@@ -16,12 +16,12 @@ gulp.task 'default', ->
 gulp.task 'clean', (cb) ->
   del 'build', cb
 
-gulp.task 'webserver', ['coffee'], ->
+gulp.task 'webserver', ->
   server = webserver
       livereload: true
       # directoryListing: true
       open: true
-  gulp.src ['public', 'build/assets']
+  gulp.src ['public', 'build/browserify']
     .pipe(server)
 
 gulp.task 'browserify', ->
