@@ -1,1 +1,2 @@
-window.alert 'test'
+Joiner = require './joiner'
+console.log 'Joiner', Joiner
