@@ -6,8 +6,8 @@ gulp.task 'default', ->
   console.log('test')
   return
 
-gulp.task 'watch:test', ->
-  gulp.watch 'test/**/*.coffee', ['test']
+gulp.task 'watch:test', ['test'], ->
+  gulp.watch ['src/**/*.coffee', 'test/**/*.coffee'], ['test']
 
 gulp.task 'test', ->
   gulp.src 'test/**/*.coffee', read: false
