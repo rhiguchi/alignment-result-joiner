@@ -14,12 +14,12 @@ gulp.task 'default', ->
 gulp.task 'clean', (cb) ->
   del 'build', cb
 
-gulp.task 'webserver', ->
+gulp.task 'webserver', ['coffee'], ->
   server = webserver
       livereload: true
       # directoryListing: true
       open: true
-  gulp.src('public')
+  gulp.src ['public', 'build/assets']
     .pipe(server)
 
 gulp.task 'coffee', ->
