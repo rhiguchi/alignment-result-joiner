@@ -13,4 +13,12 @@ class AlignmentLineJoiner
     return null unless result?
     return result[1]
 
+  # 結果行データから配列を取り出して返します
+  #
+  # @return 配列名、もしくは null
+  parseSequence: (line) ->
+    result = PARSE_NAME.exec(line)
+    return null unless result?
+    return result[3]
+
 module.exports = AlignmentLineJoiner
