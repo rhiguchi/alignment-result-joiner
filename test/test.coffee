@@ -1,8 +1,9 @@
 
 expect = require("chai").expect
+Joiner = require '../src/joiner'
 
-describe 'Array', ->
-  describe '#indexOf()', ->
-    it 'should return -1 when the value is not present', ->
-      expect([1,2,3].indexOf(5)).to.equal -1
-      expect([1,2,3].indexOf(0)).to.equal -1
+describe 'Joiner', ->
+  describe '#constructor', ->
+    it 'インスタンス化できる', ->
+      expect(Joiner).to.be.a 'function'
+      expect(new Joiner).to.be.an.instanceof Joiner
