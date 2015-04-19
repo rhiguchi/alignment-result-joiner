@@ -9,10 +9,12 @@ sourcemaps = require 'gulp-sourcemaps'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
 webserver = require 'gulp-webserver'
+zip = require 'gulp-zip'
 
 require 'coffee-script/register'
 
 path =
+  build: 'build'
   dist: 'build/dist'
 
 # ライブリロードを行うサーバー
@@ -29,6 +31,12 @@ gulp.task 'start', ['dist'], ->
   gulp.src path.dist
     .pipe webserver
       open: true
+
+# 成果物パッケージ生成
+gulp.task 'package', ['dist'], ->
+  gulp.src "#{path.dist}/**/*"
+    .pipe zip 'app.zip'
+    .pipe gulp.dest path.build
 
 # 成果物生成
 gulp.task 'dist', ['browserify'], ->
