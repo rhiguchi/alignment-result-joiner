@@ -12,6 +12,9 @@ webserver = require 'gulp-webserver'
 
 require 'coffee-script/register'
 
+path =
+  dist: 'build/dist'
+
 # ライブリロードを行うサーバー
 gulp.task 'default', [
   'watchify'
@@ -21,13 +24,19 @@ gulp.task 'default', [
 gulp.task 'clean', (cb) ->
   del 'build', cb
 
+# 成果物の表示
+gulp.task 'start', ['dist'], ->
+  gulp.src path.dist
+    .pipe webserver
+      open: true
+
 # 成果物生成
 gulp.task 'dist', ['browserify'], ->
   gulp.src [
       'public/**/*'
       'build/browserify/**/*'
     ]
-    .pipe gulp.dest 'build/dist'
+    .pipe gulp.dest path.dist
 
 gulp.task 'webserver', ->
   server = webserver
