@@ -1,0 +1,16 @@
+{
+  "name": "alignment-result-joiner",
+  "version": "0.0.0",
+  "authors": [
+    "HIGUCHI Ryusuke <higuchi@sci-d.co.jp>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
