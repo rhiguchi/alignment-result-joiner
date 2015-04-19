@@ -24,7 +24,7 @@ window.onload = ->
   return
 
 clearResultView = ->
-  document.getElementById('result-view').innerHtml = ''
+  document.getElementById('result-view').innerHTML = ''
   return
 
 addResult = (name, sequence) ->
