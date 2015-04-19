@@ -90,6 +90,15 @@ gulp.task 'watchify', watchifyBundler = ->
 watchifyBase.on 'update', watchifyBundler
 watchifyBase.on 'log', gutil.log
 
+# bower ライブラリの自動取得
+gulp.task 'bower', () ->
+  bower = require 'bower'
+  mainBowerFiles = require 'main-bower-files'
+
+  bower.commands.install().on 'end', ->
+    gulp.src mainBowerFiles()
+      .pipe gulp.dest 'build/bower'
+
 gulp.task 'coffee', ->
   gulp.src 'src/**/*.coffee'
     .pipe coffee()
