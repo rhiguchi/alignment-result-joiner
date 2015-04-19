@@ -16,12 +16,20 @@ require 'coffee-script/register'
 path =
   build: 'build'
   dist: 'build/dist'
+  bower: 'build/bower'
 
-# ライブリロードを行うサーバー
-gulp.task 'default', [
-  'watchify'
-  'webserver'
-]
+gulp.task 'default', ['run']
+
+# ライブリロードを行う開発用サーバー
+gulp.task 'run', ['bower', 'watchify'], ->
+  gulp.src [
+      path.bower,
+      'build/browserify'
+      'public'
+    ]
+    .pipe webserver
+      livereload: true
+      open: true
 
 gulp.task 'clean', (cb) ->
   del 'build', cb
@@ -45,14 +53,6 @@ gulp.task 'dist', ['browserify'], ->
       'build/browserify/**/*'
     ]
     .pipe gulp.dest path.dist
-
-gulp.task 'webserver', ->
-  server = webserver
-      livereload: true
-      # directoryListing: true
-      open: true
-  gulp.src ['public', 'build/browserify']
-    .pipe(server)
 
 
 gulp.task 'browserify', -> bundleBrowserify createBrowserifyBase()
@@ -97,7 +97,7 @@ gulp.task 'bower', () ->
 
   bower.commands.install().on 'end', ->
     gulp.src mainBowerFiles()
-      .pipe gulp.dest 'build/bower'
+      .pipe gulp.dest path.bower
 
 gulp.task 'coffee', ->
   gulp.src 'src/**/*.coffee'
