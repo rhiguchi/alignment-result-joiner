@@ -4,6 +4,7 @@ coffee = require 'gulp-coffee'
 source = require 'vinyl-source-stream'
 buffer = require 'vinyl-buffer'
 browserify = require 'browserify'
+watchify = require 'watchify'
 sourcemaps = require 'gulp-sourcemaps'
 mocha = require 'gulp-mocha'
 gutil = require 'gulp-util'
@@ -26,21 +27,41 @@ gulp.task 'webserver', ->
   gulp.src ['public', 'build/browserify']
     .pipe(server)
 
-gulp.task 'browserify', ->
-  browserify
-      entries: [
-        './src/main.coffee'
-      ]
-      extensions: ['.coffee', '.js']
-      debug: true
-    .transform 'coffeeify'
-    .bundle()
+
+gulp.task 'browserify', -> bundleBrowserify createBrowserifyBase()
+
+# 基本設定された Browserify
+createBrowserifyBase = ->
+  browserifyBase = browserify
+    entries: [
+      './src/main.coffee'
+    ]
+    extensions: ['.coffee', '.js']
+    debug: true
+    # watchify 用引数
+    cache: {},
+    packageCache: {},
+  .transform 'coffeeify'
+
+# バンドル処理を追加
+bundleBrowserify = (b) ->
+  b.bundle()
     .on 'error', gutil.log.bind(gutil, 'Browserify Error')
     .pipe source 'bundle.js'
     .pipe buffer()
     .pipe sourcemaps.init loadMaps: true
     .pipe sourcemaps.write '.'
     .pipe gulp.dest 'build/browserify'
+
+#
+watchifyBase = watchify createBrowserifyBase()
+
+# バンドル処理
+gulp.task 'watchify', watchifyBundler = ->
+  bundleBrowserify watchifyBase
+
+watchifyBase.on 'update', watchifyBundler
+watchifyBase.on 'log', gutil.log
 
 gulp.task 'coffee', ->
   gulp.src 'src/**/*.coffee'
