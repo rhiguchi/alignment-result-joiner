@@ -49,8 +49,9 @@ gulp.task 'package', ['dist'], ->
 # 成果物生成
 gulp.task 'dist', ['browserify'], ->
   gulp.src [
-      'public/**/*'
+      'build/bower/**/*'
       'build/browserify/**/*'
+      'public/**/*'
     ]
     .pipe gulp.dest path.dist
 
