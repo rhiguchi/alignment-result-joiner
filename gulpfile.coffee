@@ -21,6 +21,14 @@ gulp.task 'default', [
 gulp.task 'clean', (cb) ->
   del 'build', cb
 
+# 成果物生成
+gulp.task 'dist', ['browserify'], ->
+  gulp.src [
+      'public/**/*'
+      'build/browserify/**/*'
+    ]
+    .pipe gulp.dest 'build/dist'
+
 gulp.task 'webserver', ->
   server = webserver
       livereload: true
