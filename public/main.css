@@ -1,0 +1,13 @@
+#result-pane {
+  overflow: scroll;
+  overflow-y: visible;
+}
+
+#result-view > .name {
+  display: inline-block;
+}
+
+#result-view > .sequence {
+  font-family: monospace;
+  white-space: nowrap;
+}

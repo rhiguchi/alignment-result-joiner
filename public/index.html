@@ -3,6 +3,7 @@
 <head>
   <title>Test</title>
   <link rel="stylesheet" type="text/css" href="/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="/main.css">
   <script src="/jquery.js"></script>
   <script src="/bootstrap.js"></script>
   <script src="/bundle.js"></script>
@@ -20,14 +21,13 @@
 
   <div role="tabpanel">
     <ul class="nav nav-tabs" role="tablist">
-      <li role="presentation" class="active"><a href="#result-pane" aria-controls="result-pane" role="tab" data-toggle="tab">変換結果</a></li>
+      <li role="presentation" class="active"><a href="#result-pane" aria-controls="result-pane" role="tab" data-toggle="tab">変換後</a></li>
       <li role="presentation"><a href="#original-pane" aria-controls="original-pane" role="tab" data-toggle="tab">変換前</a></li>
     </ul>
 
     <div class="tab-content">
-      <div id="result-pane" role="tabpanel" class="tab-pane active">
+      <div id="result-pane" role="tabpanel" class="tab-pane active well">
         <dl id="result-view">
-          <dd>（ファイルを指定してください）
         </dl>
 
         <div id="dom-template">
@@ -39,7 +39,7 @@
       </div>
 
       <div id="original-pane" role="tabpanel" class="tab-pane">
-        <pre id="file-preview" class="well">（ファイルを指定してください）</pre>
+        <pre id="file-preview">（ファイルを指定してください）</pre>
       </div>
     </div>
   </div>
