@@ -2,23 +2,48 @@
 <html>
 <head>
   <title>Test</title>
+  <link rel="stylesheet" type="text/css" href="/bootstrap.css">
+  <script src="/jquery.js"></script>
+  <script src="/bootstrap.js"></script>
   <script src="/bundle.js"></script>
 </head>
 <body>
-<form>
-  アライメント結果ファイル：<input id="file-input" type="file">
-</form>
+<div class="container">
+  <form class="form-inline panel panel-default">
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="file-input">アラインメント結果ファイル：</label>
+        <input id="file-input" class="form-control" type="file">
+      </div>
+    </div>
+  </form>
 
-<pre id="file-preview"></pre>
+  <div role="tabpanel">
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#result-pane" aria-controls="result-pane" role="tab" data-toggle="tab">変換結果</a></li>
+      <li role="presentation"><a href="#original-pane" aria-controls="original-pane" role="tab" data-toggle="tab">変換前</a></li>
+    </ul>
 
-<dl id="result-view">
-</dl>
+    <div class="tab-content">
+      <div id="result-pane" role="tabpanel" class="tab-pane active">
+        <dl id="result-view">
+          <dd>（ファイルを指定してください）
+        </dl>
 
-<div id="dom-template">
-  <dl id="result-item-template">
-    <dt class="name"></dt>
-    <dd class="sequence"></dd>
-  </dl>
+        <div id="dom-template">
+          <dl id="result-item-template">
+            <dt class="name"></dt>
+            <dd class="sequence"></dd>
+          </dl>
+        </div>
+      </div>
+
+      <div id="original-pane" role="tabpanel" class="tab-pane">
+        <pre id="file-preview" class="well">（ファイルを指定してください）</pre>
+      </div>
+    </div>
+  </div>
+
 </div>
 </body>
 </html>
