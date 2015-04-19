@@ -12,9 +12,11 @@ webserver = require 'gulp-webserver'
 
 require 'coffee-script/register'
 
-gulp.task 'default', ->
-  console.log('test')
-  return
+# ライブリロードを行うサーバー
+gulp.task 'default', [
+  'watchify'
+  'webserver'
+]
 
 gulp.task 'clean', (cb) ->
   del 'build', cb
