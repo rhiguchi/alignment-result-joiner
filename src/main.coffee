@@ -1,3 +1,4 @@
+FileSaver = require 'file-saver.js'
 Joiner = require './joiner'
 
 window.onload = ->
@@ -21,6 +22,14 @@ window.onload = ->
       reader.readAsText file
     else
       filePreview.textContent = "読み込むことができないファイル形式です： #{file.type}"
+
+  saveButton = document.getElementById('save-result')
+  saveButton.addEventListener 'click', (e) ->
+    content = document.getElementById('result-view').innerText
+    data = new Blob([content], {type: "text/plain;charset=utf-8"})
+    url = window.URL.createObjectURL(data)
+    FileSaver.saveAs(data, 'result.txt')
+
   return
 
 clearResultView = ->
