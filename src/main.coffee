@@ -14,13 +14,13 @@ window.onload = ->
       reader = new FileReader()
 
       reader.onload = (e) ->
-        filePreview.innerText = @result;
+        filePreview.textContent = @result;
 
         addResult(item.name, item.sequence) for item in parseFromFile(@result)
 
       reader.readAsText file
     else
-      filePreview.innerText = "読み込むことができないファイル形式です： #{file.type}"
+      filePreview.textContent = "読み込むことができないファイル形式です： #{file.type}"
   return
 
 clearResultView = ->
@@ -39,8 +39,8 @@ createResultItemElements = (name, sequence) ->
   template = document.getElementById 'result-item-template'
   element = template.cloneNode(true)
 
-  element.querySelector('.name').innerText = name
-  element.querySelector('.sequence').innerText = sequence
+  element.querySelector('.name').textContent = name
+  element.querySelector('.sequence').textContent = sequence
 
   return element.children
 
