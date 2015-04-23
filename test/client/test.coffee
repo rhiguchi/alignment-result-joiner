@@ -1,9 +1,12 @@
 
 expect = chai.expect
 
-describe 'hello', ->
-  it 'should say hello to person', ->
-    expect(hello 'Bob').to.eq 'hello Bob'
+describe 'Client', ->
+  describe '.SequenceAlignment', ->
+    it 'クラスが定義されている'
 
-  it 'should say "hello world" if no provided', ->
-    expect(hello()).to.eq 'hello world'
+  describe '.FileLoader', ->
+    it 'クラスが定義されている'
+
+  describe '.AlignmentView', ->
+    it 'クラスが定義されている'
