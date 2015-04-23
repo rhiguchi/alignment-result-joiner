@@ -67,9 +67,8 @@ createBrowserifyBase = ->
     extensions: ['.coffee', '.js']
     debug: true
     # watchify 用引数
-    cache: {},
-    packageCache: {},
-  .transform 'coffeeify'
+    cache: {}
+    packageCache: {}
 
 # バンドル処理を追加
 bundleBrowserify = (b) ->
@@ -109,6 +108,6 @@ gulp.task 'watch:test', ['test'], ->
   gulp.watch ['src/**/*.coffee', 'test/**/*.coffee'], ['test']
 
 gulp.task 'test', ->
-  gulp.src ['src/**/*.coffee', 'test/**/*.coffee'], read: false
+  gulp.src ['test/*.coffee'], read: false
     .pipe mocha reporter: 'spec'
     .on 'error', gutil.log
