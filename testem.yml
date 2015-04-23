@@ -1,7 +1,13 @@
 framework: mocha+chai
 
+launchers:
+  Mocha:
+    command: "mocha -R tap"
+    protocol: tap
+
 launch_in_dev:
 - PhantomJS
+- Mocha
 
 on_start: mkdir -p .testem
 on_exit: rm -r .testem
