@@ -109,6 +109,6 @@ gulp.task 'watch:test', ['test'], ->
   gulp.watch ['src/**/*.coffee', 'test/**/*.coffee'], ['test']
 
 gulp.task 'test', ->
-  gulp.src ['src/**/*.coffee', 'test/**/*.coffee'], read: false
+  gulp.src ['test/*.coffee'], read: false
     .pipe mocha reporter: 'spec'
     .on 'error', gutil.log
