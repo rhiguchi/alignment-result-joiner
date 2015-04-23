@@ -6,10 +6,12 @@ launch_in_dev:
 on_start: mkdir -p .testem
 on_exit: rm -r .testem
 
-before_tests: coffee -o .testem -c src/client.coffee test/client/*.coffee
+before_tests: >
+  ./node_modules/browserify/bin/cmd.js src/main.coffee -o .testem/bundle.js --extension='.coffee';
+  coffee -o .testem -c src/client.coffee test/client/*.coffee
 
 src_files:
-- src/client.coffee
+- src/**/*.coffee
 - test/client/*.coffee
 
 serve_files:
