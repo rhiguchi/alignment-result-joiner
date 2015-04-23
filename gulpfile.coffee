@@ -67,9 +67,8 @@ createBrowserifyBase = ->
     extensions: ['.coffee', '.js']
     debug: true
     # watchify 用引数
-    cache: {},
-    packageCache: {},
-  .transform 'coffeeify'
+    cache: {}
+    packageCache: {}
 
 # バンドル処理を追加
 bundleBrowserify = (b) ->
