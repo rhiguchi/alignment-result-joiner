@@ -21,12 +21,13 @@
     "gulp-zip": "^3.0.2",
     "main-bower-files": "^2.6.2",
     "mocha": "^2.2.4",
+    "testem": "^0.8.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.1.1"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha",
+    "test": "node_modules/testem/testem.js ci -l Mocha,PhantomJS -R tap",
     "browserify": "./node_modules/browserify/bin/cmd.js src/main.coffee -o build/browserify/bundle.js --extension='.coffee'"
   },
   "author": "",
