@@ -26,7 +26,8 @@
     "watchify": "^3.1.1"
   },
   "scripts": {
-    "test": "node_modules/mocha/bin/mocha"
+    "test": "node_modules/mocha/bin/mocha",
+    "browserify": "./node_modules/browserify/bin/cmd.js src/main.coffee -o build/browserify/bundle.js --extension='.coffee'"
   },
   "author": "",
   "license": "MIT",
