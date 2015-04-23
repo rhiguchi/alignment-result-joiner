@@ -35,7 +35,10 @@ describe 'class Parser', ->
       expect(parseLine(sampleLine4)).to.have.property 'sequence', 'T..........................................................C...C............'
 
   describe '#parse', ->
-    parse = (text) -> new Parser().parse(text)
+    parse = null
+
+    beforeEach ->
+      parse = (text) -> new Parser().parse(text)
 
     text1 = """
       [GENETYX-MAC: Multiple Alignment]
@@ -51,10 +54,12 @@ describe 'class Parser', ->
     text2 = """
       DQ072726               1:ATGGCTTCTGTCAGCTTTCAGGATCGTGGCCGCAAACGAGTGCCCTTATCTCTTTATGCCCCTCTTAGGGTTACTAATGACAAACCCCTT 90
       EF185992               1:......................................G.....A........C.............................G...... 90
+      JN547228 600-10 del    1:..............T.......................G.....A.....C..C.................................... 90
                                **************.**.********..*..*...***.*****.*****.**.*****************************.******
 
       DQ072726            1251:GGAATGGGACACAGCTGTTGATGGTGGTGACACGGCCGTTGAAATTATCAACGAGATCTTCGATACAGGAAATTAA               1326
       EF185992            1251:..............................T.............................................               1326
+      JN547228 600-10 del 1241:T..........................................................C...C............               1316
                                .*****************************.********..**.*.*************.***.************
     """.replace /\As+/g, ""
 
@@ -88,4 +93,16 @@ describe 'class Parser', ->
       expect(result).to.have.property 'EF185992',
         "......................................G.....A........C.............................G......" +
         "..............................T............................................."
+
+    it 'ドットを塩基に置き換えた配列が得られる', ->
+      parse = (text) -> new Parser(true).parse(text)
+
+      result = parse text2
+      expect(result['EF185992']).to
+        .eq "ATGGCTTCTGTCAGCTTTCAGGATCGTGGCCGCAAACGGGTGCCATTATCTCTCTATGCCCCTCTTAGGGTTACTAATGACAAGCCCCTT" +
+            "GGAATGGGACACAGCTGTTGATGGTGGTGATACGGCCGTTGAAATTATCAACGAGATCTTCGATACAGGAAATTAA"
+
+      expect(result['JN547228 600-10 del']).to
+        .eq "ATGGCTTCTGTCAGTTTTCAGGATCGTGGCCGCAAACGGGTGCCATTATCCCTCTATGCCCCTCTTAGGGTTACTAATGACAAACCCCTT" +
+            "TGAATGGGACACAGCTGTTGATGGTGGTGACACGGCCGTTGAAATTATCAACGAGATCTCCGACACAGGAAATTAA"
 
