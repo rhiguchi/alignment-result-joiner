@@ -18,34 +18,30 @@ SequenceAlignment = Backbone.Model.extend
   setFile: (file) ->
     textType = /text.*/
 
+    # テキストファイルを設定する
+    setResult = (text) => @setSourceText text
+
     if file.type.match textType
       reader = new FileReader()
       reader.readAsText file
-
-      setResult = (text) => @setSourceText text
       reader.onload = (e) -> setResult @result
     else
-      @setFileTextAsInvalid(file.type)
+      setResult null
 
   getSourceText: -> @get 'sourceText'
 
   # 結果ファイルを設定します
   setSourceText: (text) ->
-    @result = @parser.parse text
+    @result = if text? then @parser.parse text else null
+
+    # ファイルが不正のときはそのエラーをテキストとする
+    sourceText = text ? "読み込むことができないファイル形式です"
 
     @set
-      sourceText: text
+      sourceText: sourceText
       result: @result
 
   getResult: -> @result ? {}
-
-  # ファイルが不正であったことを記します
-  setFileTextAsInvalid: (invalidFileType) ->
-    @result = null
-    # エラー結果を設定
-    @set
-      sourceText: "読み込むことができないファイル形式です： #{invalidFileType}"
-      result: @result
 
 
 # ファイルを読み込んでモデルに格納
