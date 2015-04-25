@@ -1,6 +1,7 @@
 Parser = require './parser'
 Backbone = require 'backbone'
 Backbone.$ = require 'jquery'
+FileSaver = require 'file-saver.js'
 
 # アラインメント結果を取り扱うモデル
 SequenceAlignment = Backbone.Model.extend
@@ -61,6 +62,12 @@ FileLoader = Backbone.View.extend
 
 # アライメント解析結果を描画する
 AlignmentView = Backbone.View.extend
+  events:
+    # 結果を保存
+    'click button[name=save]': (event) ->
+      event.preventDefault()
+      @save()
+
   initialize: (options) ->
     @model ?= new SequenceAlignment
 
@@ -84,6 +91,13 @@ AlignmentView = Backbone.View.extend
       $resultView.append $template.children().clone()
 
     return
+
+  # 結果をファイルに保存する
+  save: ->
+    content = @$('#result-view').text()
+    data = new Blob([content], {type: "text/plain;charset=utf-8"})
+    FileSaver.saveAs(data, 'result.txt')
+
 
 module.exports =
   SequenceAlignment: SequenceAlignment
