@@ -1,5 +1,6 @@
 Parser = require './parser'
 Backbone = require 'backbone'
+_ = require 'underscore'
 Backbone.$ = require 'jquery'
 FileSaver = require 'file-saver.js'
 
@@ -62,6 +63,8 @@ FileLoader = Backbone.View.extend
 
 # アライメント解析結果を描画する
 AlignmentView = Backbone.View.extend
+  sequenceTemplate: _.template("<%= name %>\t<%= sequence %>\n");
+
   events:
     # 結果を保存
     'click button[name=save]': (event) ->
@@ -86,9 +89,11 @@ AlignmentView = Backbone.View.extend
     $template = $('#result-item-template').clone()
 
     for name, sequence of @model.getResult()
-      $template.find('.name').text(name)
-      $template.find('.sequence').text(sequence)
-      $resultView.append $template.children().clone()
+      view = @sequenceTemplate
+        name: name
+        sequence: sequence
+
+      $resultView.append view
 
     return
 
