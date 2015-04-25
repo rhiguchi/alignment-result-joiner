@@ -8,6 +8,8 @@ FileSaver = require 'file-saver.js'
 SequenceAlignment = Backbone.Model.extend
   # 解析結果
   result: null
+  # 読み込んだファイル名
+  fileName: null
   # 読み取り器
   parser: null
 
@@ -17,6 +19,7 @@ SequenceAlignment = Backbone.Model.extend
 
   setFile: (file) ->
     textType = /text.*/
+    @fileName = file.name
 
     # テキストファイルを設定する
     setResult = (text) => @setSourceText text
@@ -59,7 +62,8 @@ FileLoader = Backbone.View.extend
 
 # アライメント解析結果を描画する
 AlignmentView = Backbone.View.extend
-  sequenceTemplate: _.template("<p><%= name %>\t<%= sequence %></p>");
+  sequenceTemplate: _.template "<p><%= name %>\t<%= sequence %></p>\n"
+  headerTemplate: _.template "<p>read file\t<%= fileName %></p>\n<p>date\t<%= date %></p>"
   # 変換後のデータ出力領域
   $resultView: null
 
@@ -87,20 +91,29 @@ AlignmentView = Backbone.View.extend
     @renderResultView()
 
   renderResultView: ->
+    # 属性を結果領域に追加
+    appnedElement = (element) => @$resultView.append element
+
     # シーケンスを追加
     appendSequence = (name, sequence) =>
-      element = @sequenceTemplate
+      appnedElement @sequenceTemplate
         name: name
         sequence: sequence
-
-      @$resultView.append element
       return
 
     # 以前の出力を消去
     @$resultView.html('')
 
-    # TODO ファイル名と日付をヘッダーとして出力
+    # ファイル名と日付をヘッダーとして出力
+    date = new Date()
+    dateString = "#{date.getFullYear()}/#{date.getMonth() + 1}/#{date.getDate()}"
 
+    appnedElement @headerTemplate
+      fileName: @model.fileName
+      date: dateString
+
+    # 結果のヘッダー
+    appnedElement """<p>&nbsp;</p>\n<p>name\tsequence</p>\n"""
     # 結果出力
     appendSequence(name, sequence) for name, sequence of @model.getResult()
 
