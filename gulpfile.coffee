@@ -91,11 +91,11 @@ watchifyBase.on 'update', watchifyBundler
 watchifyBase.on 'log', gutil.log
 
 # bower ライブラリの自動取得
-gulp.task 'bower', () ->
-  bower = require 'bower'
+gulp.task 'bower', ->
+  bower = require 'gulp-bower'
   mainBowerFiles = require 'main-bower-files'
 
-  bower.commands.install().on 'end', ->
+  bower().on 'end', ->
     gulp.src mainBowerFiles()
       .pipe gulp.dest path.bower
 
