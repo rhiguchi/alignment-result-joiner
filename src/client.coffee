@@ -63,7 +63,7 @@ FileLoader = Backbone.View.extend
 
 # アライメント解析結果を描画する
 AlignmentView = Backbone.View.extend
-  sequenceTemplate: _.template("<%= name %>\t<%= sequence %>\n");
+  sequenceTemplate: _.template("<p><%= name %>\t<%= sequence %></p>");
 
   events:
     # 結果を保存

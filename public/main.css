@@ -1,13 +1,23 @@
 #result-pane {
+  border: solid 1px #ddd;
+}
+
+.result-container {
   overflow: scroll;
   overflow-y: visible;
+  border-top: solid 1px #ddd;
+  margin: 0;
 }
 
-#result-view > .name {
-  display: inline-block;
+.actions {
+  padding: 10px 20px;
 }
 
-#result-view > .sequence {
+#result-view {
   font-family: monospace;
+}
+
+#result-view p {
+  margin: 0;
   white-space: nowrap;
 }
