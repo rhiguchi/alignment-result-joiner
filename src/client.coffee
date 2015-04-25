@@ -60,6 +60,8 @@ FileLoader = Backbone.View.extend
 # アライメント解析結果を描画する
 AlignmentView = Backbone.View.extend
   sequenceTemplate: _.template("<p><%= name %>\t<%= sequence %></p>");
+  # 変換後のデータ出力領域
+  $resultView: null
 
   events:
     # 結果を保存
@@ -72,24 +74,35 @@ AlignmentView = Backbone.View.extend
 
     # モデルの変化によって動作
     @listenTo @model, 'change', => @render()
+
+    # 利用する要素の初期化
+    @$resultView = @$('#result-view')
     return
 
   render: ->
-    console.log 'render', @model
+    # 「変換前」の描画
     @$('#file-preview').text(@model.getSourceText())
 
-    # 結果
-    $resultView = @$('#result-view')
-    $resultView.html('')
+    # 「変換後」の描画
+    @renderResultView()
 
-    $template = $('#result-item-template').clone()
-
-    for name, sequence of @model.getResult()
-      view = @sequenceTemplate
+  renderResultView: ->
+    # シーケンスを追加
+    appendSequence = (name, sequence) =>
+      element = @sequenceTemplate
         name: name
         sequence: sequence
 
-      $resultView.append view
+      @$resultView.append element
+      return
+
+    # 以前の出力を消去
+    @$resultView.html('')
+
+    # TODO ファイル名と日付をヘッダーとして出力
+
+    # 結果出力
+    appendSequence(name, sequence) for name, sequence of @model.getResult()
 
     return
 
