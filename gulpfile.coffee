@@ -15,16 +15,17 @@ require 'coffee-script/register'
 
 path =
   build: 'build'
+  assets:
+    dir: 'build/assets'
+    bower: 'build/assets'
   dist: 'build/dist'
-  bower: 'build/bower'
 
 gulp.task 'default', ['run']
 
 # ライブリロードを行う開発用サーバー
 gulp.task 'run', ['bower', 'watchify'], ->
   gulp.src [
-      path.bower,
-      'build/browserify'
+      path.build
       'public'
     ]
     .pipe webserver
@@ -48,12 +49,13 @@ gulp.task 'package', ['dist'], ->
 
 # 成果物生成
 gulp.task 'dist', ['browserify'], ->
-  gulp.src [
-      'build/bower/**/*'
-      'build/browserify/**/*'
-      'public/**/*'
-    ]
+  gulp.src 'public/**/*'
     .pipe gulp.dest path.dist
+
+  gulp.src "#{path.assets.dir}/**/*"
+    .pipe gulp.dest "#{path.dist}/assets"
+
+  return
 
 
 gulp.task 'browserify', -> bundleBrowserify createBrowserifyBase()
@@ -78,7 +80,7 @@ bundleBrowserify = (b) ->
     .pipe buffer()
     .pipe sourcemaps.init loadMaps: true
     .pipe sourcemaps.write '.'
-    .pipe gulp.dest 'build/browserify'
+    .pipe gulp.dest path.assets.dir
 
 #
 watchifyBase = watchify createBrowserifyBase()
@@ -97,7 +99,7 @@ gulp.task 'bower', ->
 
   bower().on 'end', ->
     gulp.src mainBowerFiles()
-      .pipe gulp.dest path.bower
+      .pipe gulp.dest path.assets.bower
 
 gulp.task 'coffee', ->
   gulp.src 'src/**/*.coffee'
