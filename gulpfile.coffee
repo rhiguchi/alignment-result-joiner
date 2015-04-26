@@ -51,11 +51,9 @@ gulp.task 'package', ['dist'], ->
 gulp.task 'dist', ['browserify'], ->
   gulp.src 'public/**/*'
     .pipe gulp.dest path.dist
-
-  gulp.src "#{path.assets.dir}/**/*"
-    .pipe gulp.dest "#{path.dist}/assets"
-
-  return
+    .on 'end', ->
+    gulp.src "#{path.assets.dir}/**/*"
+      .pipe gulp.dest "#{path.dist}/assets"
 
 
 gulp.task 'browserify', -> bundleBrowserify createBrowserifyBase()
