@@ -116,7 +116,7 @@ AlignmentView = Backbone.View.extend
       date: dateString
 
     # 結果のヘッダー
-    appnedElement """<p>&nbsp;</p>\n<p>name\tsequence</p>\n"""
+    appnedElement """<br>\n\n<p>name\tsequence</p>\n"""
     # 結果出力
     appendSequence(name, sequence) for name, sequence of @model.getResult()
 
