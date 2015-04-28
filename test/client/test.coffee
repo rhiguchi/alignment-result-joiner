@@ -1,12 +1,12 @@
 
-{ SequenceAlignment, FileLoader, AlignmentView } = require '../../src/client'
+{ SequenceAlignment, FileLoader, AlignmentView } = require 'client'
 
 expect = chai.expect
 
-describe 'Client', ->
-  describe '.SequenceAlignment', ->
-    it 'クラスが定義されている', ->
-      expect(SequenceAlignment).to.be.a 'function'
+describe 'SequenceAlignment', ->
+  describe 'initialize', ->
+    it 'インスタンスできる', ->
+      expect(new SequenceAlignment).to.be.an.instanceOf SequenceAlignment
 
   describe '.FileLoader', ->
     it 'クラスが定義されている', ->

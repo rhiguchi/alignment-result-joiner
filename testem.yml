@@ -13,7 +13,10 @@ on_start: mkdir -p .testem
 on_exit: rm -r .testem
 
 before_tests: >
-  ./node_modules/browserify/bin/cmd.js test/client/test.coffee -o .testem/bundle.js --extension='.coffee'
+  ./node_modules/.bin/browserify src/main.coffee \
+    -o .testem/bundle.js --extension='.coffee' \
+    -r ./src/client:client
+  coffee -o .testem -c test/client/*.coffee
 
 src_files:
 - src/**/*.coffee
