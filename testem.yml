@@ -23,4 +23,5 @@ src_files:
 - test/client/*.coffee
 
 serve_files:
-- .testem/*.js
+- .testem/bundle.js
+- .testem/test.js
