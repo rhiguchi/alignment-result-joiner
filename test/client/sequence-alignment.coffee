@@ -1,5 +1,5 @@
 
-{ SequenceAlignment, FileLoader, AlignmentView } = require 'client'
+{ SequenceAlignment } = require 'client'
 
 expect = chai.expect
 sinon = require 'sinon'
@@ -89,12 +89,3 @@ describe 'SequenceAlignment', ->
         done()
 
       model.setFile(stubFile)
-
-
-  describe '.FileLoader', ->
-    it 'クラスが定義されている', ->
-      expect(FileLoader).to.be.a 'function'
-
-  describe '.AlignmentView', ->
-    it 'クラスが定義されている', ->
-      expect(AlignmentView).to.be.a 'function'
