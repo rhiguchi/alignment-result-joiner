@@ -18,5 +18,13 @@
     "backbone": "~1.1.2",
     "file-saver.js": "~1.20150304.1",
     "sprintf": "~1.0.2"
+  },
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js"
+      ]
+    }
   }
 }
