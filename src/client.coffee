@@ -27,7 +27,7 @@ SequenceAlignment = Backbone.Model.extend
     # テキストファイルを設定する
     setResult = (text) => @setSourceText text
 
-    if file.type.match textType
+    if textType.test file.type
       reader = new FileReader()
       reader.readAsText file
       reader.onload = (e) -> setResult @result

@@ -2,6 +2,7 @@
 { SequenceAlignment, FileLoader, AlignmentView } = require 'client'
 
 expect = chai.expect
+sinon = require 'sinon'
 
 describe 'SequenceAlignment', ->
   model = null
@@ -77,6 +78,17 @@ describe 'SequenceAlignment', ->
       # null 値だと空オブジェクトが返される
       model.result =  null
       expect(model.getResult()).to.eql {}
+
+
+  describe '#setFile', ->
+    it 'テキストファイルでないオブジェクトを与えるとソースが null となる', (done) ->
+      stubFile = sinon.stub()
+
+      model.on 'change', ->
+        expect(@sourceText).to.be.empty
+        done()
+
+      model.setFile(stubFile)
 
 
   describe '.FileLoader', ->
