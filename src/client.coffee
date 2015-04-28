@@ -3,6 +3,7 @@ Backbone = require 'backbone'
 _ = require 'underscore'
 Backbone.$ = require 'jquery'
 FileSaver = require 'file-saver.js'
+sprintf = require('sprintf').sprintf
 
 # アラインメント結果を取り扱うモデル
 SequenceAlignment = Backbone.Model.extend
@@ -129,8 +130,14 @@ AlignmentView = Backbone.View.extend
   save: ->
     content = @$('#result-view').text()
     data = new Blob([content], {type: "text/plain;charset=utf-8"})
-    FileSaver.saveAs(data, 'result.txt')
+    fileName = 'MAtoExcel_result' + getFormattedCurrentDate('%04d%02d%02d') + '.txt'
 
+    FileSaver.saveAs(data, fileName)
+
+# 日付を指定したフォーマットの文字列で返す
+getFormattedCurrentDate = (format) ->
+  date = new Date()
+  sprintf format, date.getFullYear(), date.getMonth() + 1, date.getDate()
 
 module.exports =
   SequenceAlignment: SequenceAlignment
