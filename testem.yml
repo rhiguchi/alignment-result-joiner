@@ -15,7 +15,8 @@ on_exit: rm -r .testem
 before_tests: >
   ./node_modules/.bin/browserify src/main.coffee \
     -o .testem/bundle.js --extension='.coffee' \
-    -r ./src/client:client
+    -r ./src/client:client \
+    -r sinon
   coffee -o .testem -c test/client/*.coffee
 
 src_files:
