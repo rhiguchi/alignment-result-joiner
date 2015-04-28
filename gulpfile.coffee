@@ -29,8 +29,9 @@ gulp.task 'run', ['bower', 'watchify'], ->
       'public'
     ]
     .pipe webserver
+      host: '0.0.0.0'
       livereload: true
-      open: true
+      open: 'http://localhost:8000'
 
 gulp.task 'clean', (cb) ->
   del 'build', cb
