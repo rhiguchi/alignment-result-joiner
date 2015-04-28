@@ -17,7 +17,7 @@ before_tests: >
     -o .testem/bundle.js --extension='.coffee' \
     -r ./src/client:client \
     -r sinon
-  coffee -o .testem -c test/client/*.coffee
+  coffee -o .testem/test -c test/client/*.coffee
 
 src_files:
 - src/**/*.coffee
@@ -25,4 +25,4 @@ src_files:
 
 serve_files:
 - .testem/bundle.js
-- .testem/test.js
+- .testem/test/*.js
