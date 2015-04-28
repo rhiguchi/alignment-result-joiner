@@ -28,8 +28,8 @@
     "watchify": "^3.1.1"
   },
   "scripts": {
-    "test": "node_modules/testem/testem.js ci -l Mocha,PhantomJS -R tap",
-    "browserify": "./node_modules/browserify/bin/cmd.js src/main.coffee -o build/browserify/bundle.js --extension='.coffee'"
+    "test": "testem ci -l Mocha,PhantomJS -R tap",
+    "browserify": "browserify src/main.coffee -o build/browserify/bundle.js --extension='.coffee'"
   },
   "author": "",
   "license": "MIT",
