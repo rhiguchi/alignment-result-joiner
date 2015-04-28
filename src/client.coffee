@@ -6,6 +6,9 @@ FileSaver = require 'file-saver.js'
 
 # アラインメント結果を取り扱うモデル
 SequenceAlignment = Backbone.Model.extend
+  defaults:
+    sourceText: ''
+
   # 解析結果
   result: null
   # 読み込んだファイル名
