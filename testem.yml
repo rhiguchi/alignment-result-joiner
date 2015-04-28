@@ -16,7 +16,8 @@ before_tests: >
   ./node_modules/.bin/browserify src/main.coffee \
     -o .testem/bundle.js --extension='.coffee' \
     -r ./src/client:client \
-    -r sinon
+    -r backbone \
+    -r jquery
   coffee -o .testem/test -c test/client/*.coffee
 
 src_files:
@@ -25,4 +26,6 @@ src_files:
 
 serve_files:
 - .testem/bundle.js
+- node_modules/sinon/pkg/sinon.js
+- node_modules/sinon-chai/lib/sinon-chai.js
 - .testem/test/*.js

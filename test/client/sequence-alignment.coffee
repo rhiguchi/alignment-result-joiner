@@ -2,7 +2,6 @@
 { SequenceAlignment } = require 'client'
 
 expect = chai.expect
-sinon = require 'sinon'
 
 describe 'SequenceAlignment', ->
   model = null
