@@ -29,7 +29,7 @@
   },
   "scripts": {
     "test": "testem ci -l Mocha,PhantomJS -R tap",
-    "browserify": "browserify src/main.coffee -o build/browserify/bundle.js --extension='.coffee'"
+    "browserify": "browserify src/main.coffee -o build/browserify/bundle.js -r ./src/client:client --extension='.coffee' --debug"
   },
   "author": "",
   "license": "MIT",
