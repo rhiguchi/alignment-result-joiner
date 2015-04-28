@@ -93,6 +93,9 @@ AlignmentView = Backbone.View.extend
     # 「変換後」の描画
     @renderResultView()
 
+    # 保存ボタンの有効性
+    @$('button[name=save]').attr 'disabled', !@model.result?
+
   renderResultView: ->
     # 属性を結果領域に追加
     appnedElement = (element) => @$resultView.append element
