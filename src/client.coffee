@@ -111,13 +111,9 @@ AlignmentView = Backbone.View.extend
     # 以前の出力を消去
     @$resultView.html('')
 
-    # ファイル名と日付をヘッダーとして出力
-    date = new Date()
-    dateString = "#{date.getFullYear()}/#{date.getMonth() + 1}/#{date.getDate()}"
-
     appnedElement @headerTemplate
       fileName: @model.fileName
-      date: dateString
+      date: getFormattedCurrentDate('%04d/%02d/%02d')
 
     # 結果のヘッダー
     appnedElement """<br>\n\n<p>name\tsequence</p>\n"""
