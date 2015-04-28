@@ -31,6 +31,7 @@
   },
   "scripts": {
     "test": "testem ci -l Mocha,PhantomJS -R tap",
+    "start": "gulp start",
     "browserify": "browserify src/main.coffee -o build/browserify/bundle.js -r ./src/client:client --extension='.coffee' --debug"
   },
   "author": "",
