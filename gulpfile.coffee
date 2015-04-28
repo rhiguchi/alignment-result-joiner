@@ -18,7 +18,7 @@ path =
   assets:
     dir: 'build/assets'
     bower: 'build/assets'
-  dist: 'build/dist'
+  dist: 'dist'
 
 gulp.task 'default', ['run']
 
@@ -46,7 +46,7 @@ gulp.task 'start', ['dist'], ->
 gulp.task 'package', ['dist'], ->
   gulp.src "#{path.dist}/**/*"
     .pipe zip 'app.zip'
-    .pipe gulp.dest path.build
+    .pipe gulp.dest '.'
 
 # 成果物生成
 gulp.task 'dist', ['browserify'], ->
