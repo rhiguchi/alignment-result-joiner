@@ -59,6 +59,21 @@ FileLoader = Backbone.View.extend
       @model.setFile event.currentTarget.files[0]
       return
 
+    # 領域のどこにドロップしてもファイル適用
+    'drop': (e) ->
+      event = e.originalEvent
+      event.stopPropagation()
+      event.preventDefault()
+
+      @model.setFile event.dataTransfer.files[0]
+      return
+
+    'dragover': (e) ->
+      event = e.originalEvent
+      event.preventDefault()
+      event.dropEffect = 'copy'
+      return
+
   initialize: (options) ->
     @model ?= new SequenceAlignment
     return
